@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.demo.domain.Categoria;
 import com.example.demo.domain.Livro;
 import com.example.demo.dtos.CategoriaDTO;
+import com.example.demo.dtos.LivroDTO;
 import com.example.demo.repositories.LivroRepository;
 import com.example.demo.service.LivroService;
 
@@ -37,12 +39,13 @@ public class LivroResource {
 
 	}
 
-//	@GetMapping
-//	public ResponseEntity<List<CategoriaDTO>> findALL() {
-//		List<Livro> list = service.findAll();
-//		List<CategoriaDTO> listDTO = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
-//		return ResponseEntity.ok().body(listDTO);
-//	}
+	@GetMapping
+	public ResponseEntity<List<LivroDTO>> findALL(
+			@RequestParam(value = "categoria", defaultValue = "0") Integer id_cat) {
+		List<Livro> list = service.findAll(id_cat);
+		List<LivroDTO> listDTO = list.stream().map(obj -> new LivroDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
+	}
 //
 //	@PostMapping
 //	public ResponseEntity<Categoria> create(@RequestBody Categoria obj) {
