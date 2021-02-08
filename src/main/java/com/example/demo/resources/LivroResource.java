@@ -48,15 +48,15 @@ public class LivroResource {
 		return ResponseEntity.ok().body(listDTO);
 	}
 
-//
-//	@PostMapping
-//	public ResponseEntity<Categoria> create(@RequestBody Categoria obj) {
-//		obj = service.create(obj);
-//		URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/{id}").buildAndExpand(obj.getId())
-//				.toUri();
-//		return ResponseEntity.created(uri).build();
-//	}
-//
+
+	@PostMapping
+	public ResponseEntity<Livro> create(@RequestParam(value = "categoria", defaultValue = "0") Integer id_cat, @RequestBody Livro obj) {
+		Livro newObj = service.create(id_cat, obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/livros/{id}").buildAndExpand(newObj.getId())
+				.toUri();
+		return ResponseEntity.created(uri).build();
+	}
+
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Livro> update(@PathVariable Integer id, @RequestBody Livro obj) {
 		Livro newObj = service.uptade(id, obj);
