@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -46,6 +47,7 @@ public class LivroResource {
 		List<LivroDTO> listDTO = list.stream().map(obj -> new LivroDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
+
 //
 //	@PostMapping
 //	public ResponseEntity<Categoria> create(@RequestBody Categoria obj) {
@@ -55,12 +57,19 @@ public class LivroResource {
 //		return ResponseEntity.created(uri).build();
 //	}
 //
-//	@PutMapping(value = "/{id}")
-//	public ResponseEntity<CategoriaDTO> uptade(@PathVariable Integer id, @RequestBody CategoriaDTO dto) {
-//		Categoria newObj = service.uptade(id, dto);
-//		return ResponseEntity.ok().body(new CategoriaDTO(newObj));
-//	}
-//
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<Livro> update(@PathVariable Integer id, @RequestBody Livro obj) {
+		Livro newObj = service.uptade(id, obj);
+		return ResponseEntity.ok().body(newObj);
+	}
+	
+	@PatchMapping(value = "/{id}")
+	public ResponseEntity<Livro> updatePatch(@PathVariable Integer id, @RequestBody Livro obj) {
+		Livro newObj = service.uptade(id, obj);
+		return ResponseEntity.ok().body(newObj);
+	}
+
+
 //	@DeleteMapping(value = "/{id}")
 //	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 //		service.delete(id);
